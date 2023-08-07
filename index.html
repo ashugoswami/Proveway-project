@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Proveway</title>
+  </head>
+
+  <body>
+    <header>
+      <!-- Button trigger modal -->
+      <!-- Modal -->
+    </header>
+    <div class="mainbody gap-head">
+      <h2 class="main-heading">Bundle & Save</h2>
+      <div id="content" class="cards"></div>
+      <div class="total-headings">
+        <div class="Shipping">
+          <p>Free 2 Day Shipping</p>
+        </div>
+        <div>
+          <p class="total">Total : <span>DKK 360.00</span></p>
+        </div>
+      </div>
+      <button class="add-cart-btn">+ Add to Cart</button>
+      <p class="tag">© Powered by Pumber</p>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      fetch("https://run.mocky.io/v3/c2a6ec55-d4ba-43b4-a0db-7c39db1ecd9d")
+        .then((response) => response.json())
+        .then((data) => {
+          let reqData = "";
+          data.map((item, i) => {
+            console.log("item", item);
+            reqData += `
+                <div class="box-one border-clr" id=show-border-${i}  data-index=${i}>
+                  <div class="first">
+                    <div class="flex-box">
+                      <input type="radio" class="radio-btn" id=radio-btn-${i} name="radioGroup${i}"/>
+                      <div style="margin-left: 10px">
+                        <p class="margins">${item.Pair} Pair</p>
+                        <p class="margins">DKK ${item.dkk}.00</p>
+                      </div>
+                    </div>
+                    <p class="discounts">${item.dis}</p>
+                    <div>
+                      <p class="popular">${item.pop}</p>
+                      <p class="off">${item.off}% OFF</p>
+                    </div>
+                  </div>
+                  <div class="show-part show" id=show-container-${i}>
+                      <table class="tableclone" style="empty-cells: hide">
+            <thead>
+              <tr>
+                <th></th>
+                <th  class="table-head1">size</th>
+                <th class="table-head1">colour</th>
+              </tr>
+            </thead>
+            <tbody style="background-color: white">
+              <tr>
+                <td style="background-color: rgb(244, 251, 249)" class="table-head">#1</td>
+                <td>
+                  <select name="size" id="size" class="select-box">
+                    <option value="size">s</option>
+                    <option value="small">s</option>
+                    <option value="medium">m</option>
+                    <option value="large">l</option>
+                    <option value="extra-large">xl</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="color" id="color" class="select-box2">
+                    <option value="color">colour</option>
+                    <option value="black">Black</option>
+                    <option value="white">White</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td style="background-color: rgb(244, 251, 249)" class="table-head">#2</td>
+                <td>
+                  <select name="size" id="size" class="select-box">
+                    <option value="size">s</option>
+                    <option value="small">s</option>
+                    <option value="medium">m</option>
+                    <option value="large">l</option>
+                    <option value="extra-large">xl</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="color" id="color" class="select-box2">
+                    <option value="color">colour</option>
+                    <option value="black">Black</option>
+                    <option value="white">White</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+                  </div>
+                </div>`;
+          });
+          const el = document.getElementById("content");
+          el.innerHTML = reqData;
+
+          const boxOneElements = document.querySelectorAll(".radio-btn");
+
+          boxOneElements.forEach((box, i) => {
+            let radioButton = box.querySelector("input[type=radio]");
+            box.addEventListener("click", () => {
+              const clickedIndex = parseInt(box.getAttribute("data-index"));
+              boxOneElements.forEach((otherBox, index) => {
+                const showPart = document.getElementById(
+                  `show-container-${index}`
+                );
+                const showbord = document.getElementById(
+                  `show-border-${index}`
+                );
+                const radios = document.getElementById(`radio-btn-${index}`);
+
+                showPart.classList.add("show");
+                showbord.classList.add("border-clr");
+                radios.checked = false;
+              });
+              const showPart2 = document.getElementById(`show-container-${i}`);
+              const showbord2 = document.getElementById(`show-border-${i}`);
+              const radios2 = document.getElementById(`radio-btn-${i}`);
+              showPart2.classList.remove("show");
+              showbord2.classList.remove("border-clr");
+              radios2.checked = true;
+            });
+          });
+        })
+        .catch((error) => {
+          console.error("Error loading JSON file:", error);
+        });
+    </script>
+  </body>
+</html>
